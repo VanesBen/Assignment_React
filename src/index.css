@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+@theme {
+    --color-primary: #121421;
+    --color-accent: #1238ED;
+    --color-smoke: #919CC9;
+    --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+    body {
+      @apply bg-primary font-display text-white;
+    }
+}
