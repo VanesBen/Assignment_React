@@ -4,14 +4,13 @@ import Navbar from "../general/Navbar";
 import axiosClient from "../../axios-client";
 import LoadingPulse from "../general/LoadingPulse";
 
-export default function DashboardAdmin() {
-    
+export default function ProductCategories() {
     const {isLoading, setUser, setIsLoading, user} = useAuth();
     const [alert, setAlert] = useState({ type: "", message: "" });
     const [users, setUsers] = useState([])
 
     function loadUser() {
-        axiosClient.get('/auth/')
+        axiosClient.get('/categories/')
             .then(({data}) => {
                 setUsers(data.data)
             })
@@ -30,6 +29,7 @@ export default function DashboardAdmin() {
                         message: msg || "Format email atau password salah!"
                     });
                 } else {
+                    // Handle error selain 422 (misal server mati, atau 500)
                     setAlert({
                         type: "error",
                         message: response?.data?.message || "Koneksi ke server gagal!"
@@ -59,11 +59,11 @@ export default function DashboardAdmin() {
                         <div key={item.id} className="rounded-xl bg-gray-200 px-4 flex justify-between items-center py-4">
                             <div className="text-black">
                                 <h1 className="font-bold text-[18px]">{item.name}</h1>
-                                <p className="font-normal text-[12px]">{item.email}</p>
+                                <p className="font-normal text-[12px]">{item.description}</p>
                             </div>
-                            <div>
+                            {/* <div>
                                 <a href={`/admin/dashboard/${item.id}`} className="text-accent font-bold hover:cursor-pointer">View Detail</a>
-                            </div>
+                            </div> */}
                         </div>
                     )
                 })

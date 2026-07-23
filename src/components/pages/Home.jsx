@@ -83,8 +83,6 @@ export default function Home() {
 
   return (
     <>
-    <Navbar/>
-
     <section
       style={{ backgroundImage: `url(${heroImg})` }}
       className="mb-10 bg-cover bg-no-repeat auto-layout h-150 md:bg-center relative mt-5 mx-6 lg:mx-50" id="hero"

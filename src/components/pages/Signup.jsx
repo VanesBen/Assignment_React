@@ -19,6 +19,7 @@ export default function Signup() {
 
     const {isLoading, setUser, setIsLoading, user, s} = useAuth();
     const [alert, setAlert] = useState({ type: "", message: "" });
+    setIsLoading(false)
     
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
@@ -107,7 +108,6 @@ export default function Signup() {
         {
             isLoading == true ? <LoadingPulse /> : null
         }
-        <Navbar/>
         <section id="login" className="flex min-h-[calc(100vh-76px)] items-center justify-center bg-[#0f111a] px-4 py-12">
                 
                 <div className="w-full max-w-md rounded-[32px] border border-white/20 bg-gray-500 p-8 text-center shadow-xl md:p-10">

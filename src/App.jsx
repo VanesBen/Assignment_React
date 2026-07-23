@@ -22,6 +22,10 @@ import { Route, Routes } from 'react-router'
 import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import DashboardAdmin from './components/pages/DashboardAdmin'
+import UserDetail from './components/pages/UserDetail'
+import ProductCategories from './components/pages/ProductCategories'
+import ProtectedRoute from './components/general/ProtectedRoute'
+import DashboardSeller from './components/pages/DashboardSeller'
 
 
 function App() {
@@ -29,11 +33,19 @@ function App() {
   
   return (
     <>
+      <Navbar/>
       <Routes >
         <Route path="/" element={<Home />}  />
         <Route path="/login" element={<Login />}  />
+        <Route path="/categories" element={<ProductCategories />}  />
         <Route path="/signup" element={<Signup />}  />
-        <Route path="/admin/dashboard" element={<DashboardAdmin />}  />
+        <Route element={<ProtectedRoute allowedRoles={"admin"}/>}>
+          <Route path="/admin/dashboard" element={<DashboardAdmin/>}/>
+          <Route path="/admin/dashboard/:id" element={<UserDetail />}  />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={"seller"}/>}>
+          <Route path="/seller/katalog" element={<DashboardSeller/>}/>
+        </Route>
       </Routes>
     </>
   )

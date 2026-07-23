@@ -16,6 +16,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const {isLoading, setUser, setIsLoading, user, s} = useAuth();
     const [alert, setAlert] = useState({ type: "", message: "" });
+    setIsLoading(false)
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -37,6 +38,7 @@ export default function Login() {
             .then(({data}) => {
                 
                 localStorage.setItem('ACCESS_TOKEN', data.data.token)
+                localStorage.setItem('USER_DATA', JSON.stringify(data.data.user));
                 setUser(data.data.user)
             
                 if (data.data.user.role === 'admin') {
@@ -44,7 +46,7 @@ export default function Login() {
                 } else if (data.data.user.role === 'seller') {
                     navigate('/seller/katalog');
                 } else if (data.data.user.role === 'buyer') {
-                    navigate('/seller/katalog');
+                    navigate('/user/katalog');
                 } else {
                     navigate('/');
                 }
@@ -65,7 +67,6 @@ export default function Login() {
                         message: msg || "Format email atau password salah!"
                     });
                 } else {
-                    // Handle error selain 422 (misal server mati, atau 500)
                     setAlert({
                         type: "error",
                         message: response?.data?.message || "Koneksi ke server gagal!"
@@ -91,7 +92,6 @@ export default function Login() {
         {
             isLoading == true ? <LoadingPulse/> : null
         }
-        <Navbar/>
         <section id="login" className="flex min-h-[calc(100vh-76px)] items-center justify-center bg-[#0f111a] px-4 py-12">
                 
                 {/* Kartu Login Box */}

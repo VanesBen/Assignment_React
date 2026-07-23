@@ -1,16 +1,21 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // null = belum login (tamu)
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(() => {
+      const savedUser = localStorage.getItem('USER_DATA');
+      return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const logout = () => {
+    localStorage.removeItem('ACCESS_TOKEN')
+    localStorage.removeItem('USER_DATA')
     setUser(null)
   };
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   
   const value = {
     user,
